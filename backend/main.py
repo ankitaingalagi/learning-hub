@@ -1,12 +1,12 @@
-from fastapi import FastAPI, Depends, HTTPException, Header
-from typing import Optional
+from fastapi import FastAPI
+from routes import programs_router
 
 app = FastAPI(title="LMS Mentorship Platform API")
 
+# Generic Health Route
 @app.get("/health")
 def health_check():
-    return {"status": "ok", "message": "FastAPI backend is running"}
+    return {"status": "ok", "message": "FastAPI backend is running modularly"}
 
-@app.get("/api/assessments")
-def get_assessments():
-    return {"data": "This would securely return assessments using Row Level Security."}
+# Attach routers
+app.include_router(programs_router.router)
