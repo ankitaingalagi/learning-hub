@@ -1,0 +1,19 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Editors
+.vscode/
+.idea/
+*.suo
+*.sw?
+
+# Logs
+*.log
+npm-debug.log*
+
+# Environment files (never commit real credentials)
+.env
+.env.local
+.env.*.local
