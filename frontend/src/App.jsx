@@ -16,6 +16,7 @@ import CourseViewer from './pages/CourseViewer';
 import LessonViewer from './pages/LessonViewer';
 import Assessments from './pages/Assessments';
 import TakeAssessment from './pages/TakeAssessment';
+import AssessmentResults from './pages/AssessmentResults';
 import GapAnalysis from './pages/GapAnalysis';
 import Roadmap from './pages/Roadmap';
 import Mentors from './pages/Mentors';
@@ -160,7 +161,8 @@ export default function App() {
             <Route path="programs/:id" element={<CourseViewer />} />
             <Route path="programs/:programId/lessons/:lessonId" element={<LessonViewer />} />
             <Route path="assessments" element={<Assessments />} />
-            <Route path="assessments/:id" element={<TakeAssessment />} />
+            <Route path="assessments/:assessment_id/take" element={<TakeAssessment />} />
+            <Route path="assessments/:assessment_id/results" element={<AssessmentResults />} />
             <Route path="gap-analysis" element={<GapAnalysis />} />
             <Route path="roadmap" element={<Roadmap />} />
             <Route path="mentors" element={<Mentors />} />

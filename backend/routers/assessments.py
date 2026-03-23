@@ -174,18 +174,20 @@ def submit_assessment(assessment_id: str, body: SubmitRequest):
                 percentage=round((band_score / band_max * 100) if band_max > 0 else 0, 1),
             ))
 
-        # Persist to assessment_results
-        insert_response = supabase_admin.table("assessment_results") \
-            .insert({
-                "profile_id": body.profile_id,
-                "assessment_id": assessment_id,
-                "score": total_score,
-            }) \
-            .select("id") \
-            .single() \
-            .execute()
-
-        result_id = insert_response.data["id"]
+        # Persist to assessment_results only when we have a valid profile_id
+        result_id = "unknown"
+        if body.profile_id and len(body.profile_id) == 36:  # basic UUID length check
+            try:
+                insert_response = supabase_admin.table("assessment_results") \
+                    .insert({
+                        "profile_id": body.profile_id,
+                        "assessment_id": assessment_id,
+                        "score": total_score,
+                    }) \
+                    .execute()
+                result_id = insert_response.data[0]["id"] if insert_response.data else "unknown"
+            except Exception:
+                pass  # Non-fatal — scores are still returned
 
         return SubmitResponse(
             result_id=result_id,
