@@ -225,6 +225,73 @@ export const eventsData = [
 
 export const blogData = [
   {
+    id: 'st1',
+    emoji: '📈',
+    catClass: 'blog-cat-career',
+    category: 'Career',
+    title: "The PM Interview : A PM's Perspective",
+    preview: "Preparing for an entry-level product management role: what to prioritize and what skills are essential...",
+    authorInitials: 'ST',
+    authorAvatarClass: 'av-t',
+    authorName: 'Shravan Tikoo',
+    readTime: '6 min read',
+    content: `The PM Interview : A PM's Perspective
+
+Preparing for a Product Management interview requires a structural shift in how you approach problem-solving. It's not just about frameworks like CIRCLES; it's about demonstrating product sense, empathy for the user, and an understanding of business alignment.
+
+Key Areas to Master:
+1. Product Sense: Can you identify the core user problem? Do you immediately jump to solutions, or do you spend time empathizing with the pain point?
+2. Execution: How do you prioritize features? Familiarize yourself with methodologies that map trade-offs.
+3. Behavioral: Every story should highlight a situation where you exhibited judgment under ambiguity.
+
+Remember: Interviewers are calibrating your thought process, not just the final feature you suggest. The best candidates communicate assumptions explicitly and validate them dynamically.`
+  },
+  {
+    id: 'st2',
+    emoji: '❤️',
+    catClass: 'blog-cat-product',
+    category: 'Product thinking',
+    title: "How to build products users 'LOVE' : A PM's Perspective",
+    preview: "Ideas for building products that users are passionate about, emphasizing the human experience...",
+    authorInitials: 'ST',
+    authorAvatarClass: 'av-p',
+    authorName: 'Shravan Tikoo',
+    readTime: '8 min read',
+    content: `How to build products users 'LOVE' : A PM's Perspective
+
+The distinction between a product users "use" and a product users "love" comes down to the human experience. Retention is a lagging indicator of love. 
+
+Core Principles to Drive Love:
+- Frictionless Onboarding: Time-to-value must be measured in seconds, not interactions. 
+- The Aha! Moment: Engineer the product flow precisely so the user experiences the sheer value of your offering as early as possible.
+- Micro-interactions: Those tiny moments of delight—like a satisfying checkmark animation—compound to build emotional connection.
+- Community and Belonging: Products that facilitate human-to-human interaction naturally command higher emotional loyalty.
+
+Stop building features based solely on Jira tickets; start building features based on emotional payoffs.`
+  },
+  {
+    id: 'st3',
+    emoji: '🧩',
+    catClass: 'blog-cat-skill',
+    category: 'Skill building',
+    title: "First Principle Thinking : A PM's Perspective",
+    preview: "Fundamental ideas that have shaped great consumer experiences and how PMs can apply them...",
+    authorInitials: 'ST',
+    authorAvatarClass: 'av-g',
+    authorName: 'Shravan Tikoo',
+    readTime: '5 min read',
+    content: `First Principle Thinking : A PM's Perspective
+
+Elon Musk popularized it, but what does First Principle Thinking actually mean for a Product Manager? It means stripping away "how it's always been done" and breaking a problem down to its fundamental, undeniable truths.
+
+Steps to apply it:
+1. Identify and define your current assumptions. Example: "Our users need a mobile app to book flights."
+2. Breakdown the problem into fundamental principles. Example: "Users need a way to secure a seat on a plane from anywhere."
+3. Create new solutions from scratch. Example: "Could they book via WhatsApp or SMS instead of downloading an app?"
+
+When you stop trying to build a slightly better version of your competitor, and start building directly from the atomic constraints of the user's need, you achieve step-function innovation.`
+  },
+  {
     id: 'b1',
     emoji: '📐',
     catClass: 'blog-cat-product',

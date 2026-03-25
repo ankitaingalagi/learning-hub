@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getBlogPost } from '../services/supabase';
+import { blogData } from '../data/placeholders';
 import { ChevronLeft, Calendar, User } from 'lucide-react';
 
 export default function BlogPost() {
@@ -14,6 +15,21 @@ export default function BlogPost() {
     if (!id) return;
     const load = async () => {
       setLoading(true);
+      
+      // 1. Check local placeholders first
+      const localMatch = blogData.find(b => b.id === id);
+      if (localMatch) {
+        setPost({
+          title: localMatch.title,
+          content: localMatch.content || localMatch.preview,
+          created_at: new Date().toISOString(),
+          profiles: { full_name: localMatch.authorName }
+        });
+        setLoading(false);
+        return;
+      }
+
+      // 2. Fallback to Supabase Database
       try {
         const { data, error: fetchError } = await getBlogPost(id);
         if (fetchError) throw fetchError;
