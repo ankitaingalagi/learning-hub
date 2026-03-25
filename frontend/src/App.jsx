@@ -11,9 +11,6 @@ import AppLayout from './components/AppLayout';
 import SignIn from './pages/auth/SignIn';
 import SignUp from './pages/auth/SignUp';
 import Dashboard from './pages/Dashboard';
-import Programs from './pages/Programs';
-import CourseViewer from './pages/CourseViewer';
-import LessonViewer from './pages/LessonViewer';
 import Assessments from './pages/Assessments';
 import TakeAssessment from './pages/TakeAssessment';
 import AssessmentResults from './pages/AssessmentResults';
@@ -31,7 +28,6 @@ import ReadinessIndex from './pages/ReadinessAssessment/Index';
 import Questionnaire from './pages/ReadinessAssessment/Questionnaire';
 import ResumeUpload from './pages/ReadinessAssessment/ResumeUpload';
 import ReadinessScorecard from './pages/ReadinessAssessment/Scorecard';
-import AdminPrograms from './pages/admin/AdminPrograms';
 import AdminUsers from './pages/admin/AdminUsers';
 
 // ─── Landing Page Components ─────────────────────────────────────────────────
@@ -165,9 +161,6 @@ export default function App() {
           <Route path="/app" element={<AppLayout />}>
             <Route index element={<Navigate to="dashboard" replace />} />
             <Route path="dashboard" element={<Dashboard />} />
-            <Route path="programs" element={<Programs />} />
-            <Route path="programs/:id" element={<CourseViewer />} />
-            <Route path="programs/:programId/lessons/:lessonId" element={<LessonViewer />} />
             <Route path="assessments" element={<Assessments />} />
             <Route path="assessments/:assessment_id/take" element={<TakeAssessment />} />
             <Route path="assessments/:assessment_id/results" element={<AssessmentResults />} />
@@ -192,7 +185,6 @@ export default function App() {
 
             {/* Admin */}
             <Route element={<AdminRoute />}>
-              <Route path="admin/programs" element={<AdminPrograms />} />
               <Route path="admin/users" element={<AdminUsers />} />
             </Route>
           </Route>

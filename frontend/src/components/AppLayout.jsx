@@ -8,7 +8,6 @@ import { useAuthStore } from '../store/authStore';
 
 const NAV_LINKS = [
   { to: '/app/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
-  { to: '/app/programs', icon: BookOpen, label: 'Programs' },
   { to: '/app/assessments', icon: ClipboardList, label: 'Assessments' },
   { to: '/app/gap-analysis', icon: BarChart2, label: 'Gap Analysis' },
   { to: '/app/roadmap', icon: Map, label: 'Roadmap' },
@@ -19,7 +18,6 @@ const NAV_LINKS = [
 ];
 
 const ADMIN_LINKS = [
-  { to: '/app/admin/programs', icon: Settings, label: 'Admin Programs' },
   { to: '/app/admin/users', icon: Shield, label: 'Admin Users' },
 ];
 
