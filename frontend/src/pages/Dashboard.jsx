@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuthStore } from '../store/authStore';
-import { getEnrollments, getAllProgress, getRoadmap, getMentorSessions } from '../services/supabase';
+import { getAllProgress, getRoadmap, getMentorSessions } from '../services/supabase';
 import { BookOpen, CheckCircle, Calendar, ArrowRight } from 'lucide-react';
 
 const STATUS_COLORS = {
@@ -12,7 +12,6 @@ const STATUS_COLORS = {
 
 export default function Dashboard() {
   const { user, profile } = useAuthStore();
-  const [enrollments, setEnrollments] = useState([]);
   const [completedLessons, setCompletedLessons] = useState(0);
   const [roadmap, setRoadmap] = useState(null);
   const [sessions, setSessions] = useState([]);
@@ -24,13 +23,11 @@ export default function Dashboard() {
     const load = async () => {
       setLoading(true);
       try {
-        const [enrollRes, progressRes, roadmapRes, sessionRes] = await Promise.all([
-          getEnrollments(user.id),
+        const [progressRes, roadmapRes, sessionRes] = await Promise.all([
           getAllProgress(user.id),
           getRoadmap(user.id),
           getMentorSessions(user.id),
         ]);
-        setEnrollments(enrollRes.data || []);
         setCompletedLessons((progressRes.data || []).filter(p => p.status === 'completed').length);
         setRoadmap(roadmapRes.data || null);
         setSessions((sessionRes.data || []).filter(s => new Date(s.start_time) >= new Date()));
@@ -71,19 +68,7 @@ export default function Dashboard() {
       )}
 
       {/* Stats row */}
-      <div className="grid-3" style={{ marginBottom: '40px' }}>
-        <div className="stat-card">
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-            <div style={{ width: '44px', height: '44px', borderRadius: '12px', background: 'rgba(59,130,246,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--accent-electric)' }}>
-              <BookOpen size={22} />
-            </div>
-            <div>
-              <div style={{ fontSize: '1.75rem', fontWeight: 700 }}>{enrollments.length}</div>
-              <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>Enrolled Programs</div>
-            </div>
-          </div>
-        </div>
-
+      <div className="grid-2" style={{ marginBottom: '40px' }}>
         <div className="stat-card">
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
             <div style={{ width: '44px', height: '44px', borderRadius: '12px', background: 'rgba(34,197,94,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#4ade80' }}>
@@ -110,46 +95,6 @@ export default function Dashboard() {
       </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '32px' }}>
-        {/* My Enrollments */}
-        <div>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px' }}>
-            <h2 style={{ fontSize: '1.1rem', fontWeight: 700 }}>My Enrollments</h2>
-            <Link to="/app/programs" style={{ color: 'var(--accent-electric)', fontSize: '0.85rem', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '4px' }}>
-              Browse all <ArrowRight size={14} />
-            </Link>
-          </div>
-          {enrollments.length === 0 ? (
-            <div className="glass-panel" style={{ padding: '24px', textAlign: 'center', color: 'var(--text-secondary)', opacity: 1, transform: 'none' }}>
-              <p>No enrollments yet.</p>
-              <Link to="/app/programs" style={{ color: 'var(--accent-electric)', textDecoration: 'none', fontWeight: 600, fontSize: '0.875rem', marginTop: '8px', display: 'inline-block' }}>
-                Browse Programs →
-              </Link>
-            </div>
-          ) : (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-              {enrollments.map(enrollment => (
-                <Link
-                  key={enrollment.id}
-                  to={`/app/programs/${enrollment.program_id}`}
-                  style={{ textDecoration: 'none' }}
-                >
-                  <div className="glass-panel" style={{ padding: '16px 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', opacity: 1, transform: 'none' }}>
-                    <div>
-                      <div style={{ fontWeight: 600, fontSize: '0.95rem', marginBottom: '4px' }}>
-                        {enrollment.programs?.title || 'Program'}
-                      </div>
-                      <span className={`badge ${enrollment.status === 'active' ? 'badge-green' : 'badge-gray'}`}>
-                        {enrollment.status}
-                      </span>
-                    </div>
-                    <ArrowRight size={16} color="var(--text-secondary)" />
-                  </div>
-                </Link>
-              ))}
-            </div>
-          )}
-        </div>
-
         {/* Right column: Roadmap + Sessions */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '28px' }}>
           {/* Roadmap snippet */}
