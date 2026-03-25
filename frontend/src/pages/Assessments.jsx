@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuthStore } from '../store/authStore';
 import { getAssessmentResults } from '../services/supabase';
-import { ClipboardList, ArrowRight, Clock, Award, RefreshCw } from 'lucide-react';
+import { ClipboardList, ArrowRight, Clock, Award, RefreshCw, ShieldCheck } from 'lucide-react';
 
 const API = import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:8000';
 
@@ -84,14 +84,18 @@ export default function Assessments() {
             }
           })
         );
-        setAssessments(withCounts);
+        
+        // Filter out the old PM Readiness Assessment since we built a dedicated feature for it
+        const filteredAssessments = withCounts.filter(a => a.title !== 'PM Readiness Assessment' && a.title !== 'Career Readiness Diagnostic');
+        setAssessments(filteredAssessments);
 
-        // 3. Fetch previous results — isolated so a Supabase failure won't
-        //    block the assessment cards from rendering
+        // 3. Fetch previous results — check localStorage first, then Supabase
+        const localResults = JSON.parse(localStorage.getItem('assessment_results') || '{}');
+        const map = { ...localResults };
+
         if (user?.id) {
           try {
             const resultRes = await getAssessmentResults(user.id);
-            const map = {};
             (resultRes.data || []).forEach((r) => {
               const matched = withCounts.find((a) => a.id === r.assessment_id);
               map[r.assessment_id] = {
@@ -99,11 +103,11 @@ export default function Assessments() {
                 max_score: (matched?.question_count || 0) * 4,
               };
             });
-            setResults(map);
           } catch {
             // Results failing is non-fatal — cards still render without scores
           }
         }
+        setResults(map);
       } catch (err) {
         setError(err.message || 'Failed to load assessments.');
       } finally {
@@ -120,6 +124,46 @@ export default function Assessments() {
       <p style={{ color: 'var(--text-secondary)', marginBottom: '32px' }}>
         Complete assessments to identify your skill gaps and generate a personalized roadmap.
       </p>
+
+      {/* Featured Career Readiness Card */}
+      <div 
+        className="glass-panel animate-fade-in" 
+        onClick={() => navigate('/app/readiness')}
+        style={{ 
+          padding: '32px', marginBottom: '32px', display: 'flex', alignItems: 'center', gap: '24px', 
+          background: 'linear-gradient(135deg, rgba(59,130,246,0.1), rgba(139,92,246,0.1))',
+          border: '1px solid rgba(139,92,246,0.3)', cursor: 'pointer', transition: 'transform 0.2s',
+        }}
+        onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-2px)'}
+        onMouseLeave={(e) => e.currentTarget.style.transform = 'none'}
+      >
+        <div style={{ width: '64px', height: '64px', borderRadius: '16px', background: 'rgba(139,92,246,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--accent-violet)', flexShrink: 0 }}>
+          <ShieldCheck size={32} />
+        </div>
+        <div style={{ flex: 1 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '8px' }}>
+            <h2 style={{ fontSize: '1.25rem', fontWeight: 700, margin: 0 }}>Career Readiness Diagnostic</h2>
+            <span className="badge badge-green">Featured</span>
+          </div>
+          <p style={{ color: 'var(--text-secondary)', fontSize: '0.95rem', lineHeight: 1.5, margin: '0 0 12px 0' }}>
+            Calibrate your market readiness with an AI-driven resume review and self-assessment. Discover your competency gaps instantly.
+          </p>
+          <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+            <span className="badge badge-gray" style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+              <Clock size={11} />
+              ~5 min
+            </span>
+            <span className="badge badge-blue">
+              5 questions
+            </span>
+          </div>
+        </div>
+        <div>
+          <button className="btn-primary" style={{ padding: '10px 24px', display: 'flex', alignItems: 'center', gap: '8px', pointerEvents: 'none' }}>
+            Start Diagnostic <ArrowRight size={16} />
+          </button>
+        </div>
+      </div>
 
       {error && (
         <div style={{
@@ -139,13 +183,7 @@ export default function Assessments() {
         </div>
       )}
 
-      {/* Empty state */}
-      {!loading && !error && assessments.length === 0 && (
-        <div className="glass-panel" style={{ padding: '60px', textAlign: 'center', color: 'var(--text-secondary)', opacity: 1, transform: 'none' }}>
-          <ClipboardList size={48} style={{ marginBottom: '16px', opacity: 0.4 }} />
-          <p style={{ fontSize: '1.1rem', fontWeight: 600 }}>No assessments available yet.</p>
-        </div>
-      )}
+
 
       {/* Assessment cards */}
       {!loading && assessments.length > 0 && (

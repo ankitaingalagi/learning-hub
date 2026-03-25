@@ -138,6 +138,10 @@ export default function TakeAssessment() {
       }
 
       const result = await res.json();
+      // Persist result locally so Assessments page shows "Retake" button
+      const stored = JSON.parse(localStorage.getItem('assessment_results') || '{}');
+      stored[assessment_id] = { score: result.total_score, max_score: result.max_score };
+      localStorage.setItem('assessment_results', JSON.stringify(stored));
       // Navigate to results page, pass result data via router state
       navigate(`/app/assessments/${assessment_id}/results`, { state: { result } });
     } catch (err) {
@@ -203,15 +207,6 @@ export default function TakeAssessment() {
             <span style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
               {Math.round(progress)}% complete
             </span>
-          </div>
-
-          {/* Progress bar */}
-          <div style={{ height: '6px', background: 'var(--glass-bg)', borderRadius: '9999px', overflow: 'hidden', border: '1px solid var(--glass-border)' }}>
-            <div style={{
-              height: '100%', width: `${progress}%`,
-              background: 'linear-gradient(90deg, var(--accent-electric), var(--accent-violet))',
-              borderRadius: '9999px', transition: 'width 0.35s cubic-bezier(0.4,0,0.2,1)',
-            }} />
           </div>
 
           {/* Step dots */}

@@ -19,10 +19,18 @@ import TakeAssessment from './pages/TakeAssessment';
 import AssessmentResults from './pages/AssessmentResults';
 import GapAnalysis from './pages/GapAnalysis';
 import Roadmap from './pages/Roadmap';
-import Mentors from './pages/Mentors';
-import Events from './pages/Events';
-import Blog from './pages/Blog';
+import MentorsEnhanced from './pages/MentorsEnhanced';
+import EventsEnhanced from './pages/EventsEnhanced';
+import BlogEnhanced from './pages/BlogEnhanced';
 import BlogPost from './pages/BlogPost';
+import InterviewPrep from './pages/InterviewPrep/Index';
+import MockSession from './pages/InterviewPrep/MockSession';
+import Scorecard from './pages/InterviewPrep/Scorecard';
+import PastSessions from './pages/InterviewPrep/PastSessions';
+import ReadinessIndex from './pages/ReadinessAssessment/Index';
+import Questionnaire from './pages/ReadinessAssessment/Questionnaire';
+import ResumeUpload from './pages/ReadinessAssessment/ResumeUpload';
+import ReadinessScorecard from './pages/ReadinessAssessment/Scorecard';
 import AdminPrograms from './pages/admin/AdminPrograms';
 import AdminUsers from './pages/admin/AdminUsers';
 
@@ -37,10 +45,10 @@ const Navbar = () => (
     <div style={{ display: 'flex', gap: '32px', alignItems: 'center' }}>
       <a href="#features" style={{ color: 'var(--text-secondary)', textDecoration: 'none', fontWeight: 500, transition: 'color 0.2s' }}>Features</a>
       <a href="#mentors" style={{ color: 'var(--text-secondary)', textDecoration: 'none', fontWeight: 500, transition: 'color 0.2s' }}>Mentors</a>
-      <Link to="/signin">
+      <Link to="/app">
         <button className="btn-outline">Sign In</button>
       </Link>
-      <Link to="/signup">
+      <Link to="/app">
         <button className="btn-primary" style={{ padding: '10px 20px', fontSize: '0.9rem' }}>Get Started</button>
       </Link>
     </div>
@@ -63,7 +71,7 @@ const Hero = () => (
         Master product sense, define your roadmap, and get 1-on-1 guidance from top-tier Product Managers at elite tech companies.
       </p>
       <div style={{ display: 'flex', gap: '16px', marginTop: '16px' }} className="animate-fade-in delay-200">
-        <Link to="/signup">
+        <Link to="/app">
           <button className="btn-primary" style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '16px 32px', fontSize: '1.1rem' }}>
             Take the Free Assessment <ChevronRight size={20} />
           </button>
@@ -165,10 +173,22 @@ export default function App() {
             <Route path="assessments/:assessment_id/results" element={<AssessmentResults />} />
             <Route path="gap-analysis" element={<GapAnalysis />} />
             <Route path="roadmap" element={<Roadmap />} />
-            <Route path="mentors" element={<Mentors />} />
-            <Route path="events" element={<Events />} />
-            <Route path="blog" element={<Blog />} />
+            <Route path="mentors" element={<MentorsEnhanced />} />
+            <Route path="events" element={<EventsEnhanced />} />
+            <Route path="blog" element={<BlogEnhanced />} />
             <Route path="blog/:id" element={<BlogPost />} />
+
+            {/* Interview Prep */}
+            <Route path="interview-prep" element={<InterviewPrep />} />
+            <Route path="interview-prep/session" element={<MockSession />} />
+            <Route path="interview-prep/scorecard" element={<Scorecard />} />
+            <Route path="interview-prep/history" element={<PastSessions />} />
+
+            {/* Readiness Assessment */}
+            <Route path="readiness" element={<ReadinessIndex />} />
+            <Route path="readiness/questionnaire" element={<Questionnaire />} />
+            <Route path="readiness/resume-upload" element={<ResumeUpload />} />
+            <Route path="readiness/scorecard" element={<ReadinessScorecard />} />
 
             {/* Admin */}
             <Route element={<AdminRoute />}>

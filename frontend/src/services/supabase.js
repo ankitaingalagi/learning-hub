@@ -133,7 +133,17 @@ export async function getGapAnalysis(profileId) {
 export async function getRoadmap(profileId) {
   return supabase
     .from('roadmaps')
-    .select('*, roadmap_steps(*)')
+    .select(`
+      *,
+      roadmap_steps(
+        id, roadmap_id, title, description, skill_area, order_index, status,
+        phase_number, step_type, time_estimate_minutes, resource_url, points,
+        is_submission_required, mentor_id,
+        mentors(id, profiles(full_name, avatar_url)),
+        created_at
+      ),
+      roadmap_phases(*)
+    `)
     .eq('profile_id', profileId)
     .order('id', { ascending: false })
     .limit(1)
@@ -142,6 +152,101 @@ export async function getRoadmap(profileId) {
 
 export async function updateRoadmapStep(stepId, status) {
   return supabase.from('roadmap_steps').update({ status }).eq('id', stepId);
+}
+
+// ─── Roadmap Phases ─────────────────────────────────────────────────────────
+
+export async function getRoadmapPhases(roadmapId) {
+  return supabase
+    .from('roadmap_phases')
+    .select('*')
+    .eq('roadmap_id', roadmapId)
+    .order('phase_number', { ascending: true });
+}
+
+export async function claimPhaseReward(phaseId) {
+  return supabase
+    .from('roadmap_phases')
+    .update({ reward_status: 'claimed', claimed_at: new Date().toISOString() })
+    .eq('id', phaseId);
+}
+
+// ─── Readiness Score ────────────────────────────────────────────────────────
+
+export async function updateRoadmapReadiness(roadmapId, newScore) {
+  return supabase
+    .from('roadmaps')
+    .update({ readiness_score: newScore })
+    .eq('id', roadmapId);
+}
+
+// ─── Submissions ────────────────────────────────────────────────────────────
+
+export async function getStepSubmission(stepId, profileId) {
+  return supabase
+    .from('roadmap_submissions')
+    .select('*')
+    .eq('step_id', stepId)
+    .eq('profile_id', profileId)
+    .maybeSingle();
+}
+
+export async function uploadSubmissionFile(stepId, profileId, file) {
+  const path = `${profileId}/${stepId}/${file.name}`;
+  const { data, error } = await supabase.storage
+    .from('submissions')
+    .upload(path, file, { upsert: true });
+  if (error) throw error;
+  return data;
+}
+
+export async function createSubmission(stepId, profileId, fileUrl, fileName) {
+  return supabase
+    .from('roadmap_submissions')
+    .insert({ step_id: stepId, profile_id: profileId, file_url: fileUrl, file_name: fileName })
+    .select()
+    .single();
+}
+
+export async function requestAIFeedback(submissionId) {
+  const apiBase = import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:8000';
+  const { data: session } = await supabase.auth.getSession();
+  const token = session?.session?.access_token;
+
+  const res = await fetch(`${apiBase}/api/roadmap/submissions/${submissionId}/feedback`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
+    },
+  });
+
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.detail || 'Failed to get AI feedback');
+  }
+  return res.json();
+}
+
+export async function generateRoadmap(profileId) {
+  const apiBase = import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:8000';
+  const { data: session } = await supabase.auth.getSession();
+  const token = session?.session?.access_token;
+
+  const res = await fetch(`${apiBase}/api/roadmap/generate`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
+    },
+    body: JSON.stringify({ profile_id: profileId }),
+  });
+
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.detail || 'Failed to generate roadmap');
+  }
+  return res.json();
 }
 
 // ─── Mentors ─────────────────────────────────────────────────────────────────

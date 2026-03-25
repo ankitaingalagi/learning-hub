@@ -1,0 +1,416 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-sans)}
+.wrap{padding:1rem 0}
+.tabs{display:flex;gap:6px;margin-bottom:1.5rem}
+.tab{padding:7px 16px;border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-secondary);font-size:13px;font-weight:500;cursor:pointer;background:transparent;color:var(--color-text-secondary);transition:all .15s}
+.tab.active{background:var(--color-background-info);color:var(--color-text-info);border-color:var(--color-border-info)}
+.section{display:none}.section.active{display:block}
+.grid2{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+.card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1rem 1.1rem}
+.avatar{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:500;flex-shrink:0}
+.av-p{background:#EEEDFE;color:#3C3489}
+.av-t{background:#E1F5EE;color:#085041}
+.av-a{background:#FAEEDA;color:#633806}
+.av-b{background:#FBEAF0;color:#72243E}
+.av-g{background:#EAF3DE;color:#27500A}
+.name{font-size:14px;font-weight:500;color:var(--color-text-primary)}
+.role{font-size:12px;color:var(--color-text-secondary);margin-top:2px}
+.tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:10px}
+.tag{font-size:11px;padding:3px 8px;border-radius:20px;background:var(--color-background-secondary);color:var(--color-text-secondary);border:0.5px solid var(--color-border-tertiary)}
+.tag-p{background:#EEEDFE;color:#534AB7}
+.tag-t{background:#E1F5EE;color:#0F6E56}
+.rating{font-size:12px;color:var(--color-text-secondary);margin-top:8px}
+.rating span{color:#BA7517;font-weight:500}
+.btn-sm{margin-top:12px;width:100%;padding:7px 0;font-size:13px;font-weight:500;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);background:transparent;color:var(--color-text-primary);cursor:pointer}
+.btn-sm:hover{background:var(--color-background-secondary)}
+.divider{height:0.5px;background:var(--color-border-tertiary);margin:10px 0}
+.event-date{font-size:11px;font-weight:500;color:var(--color-text-info);background:var(--color-background-info);padding:3px 8px;border-radius:var(--border-radius-md);display:inline-block;margin-bottom:8px}
+.event-title{font-size:14px;font-weight:500;color:var(--color-text-primary);line-height:1.4}
+.event-meta{font-size:12px;color:var(--color-text-secondary);margin-top:5px}
+.badge{font-size:11px;padding:3px 8px;border-radius:20px;font-weight:500}
+.badge-live{background:#E1F5EE;color:#0F6E56}
+.badge-virtual{background:#EEEDFE;color:#534AB7}
+.badge-inperson{background:#FAEEDA;color:#633806}
+.badge-free{background:#EAF3DE;color:#3B6D11}
+.badge-paid{background:#FBEAF0;color:#993556}
+.blog-img{height:80px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);margin-bottom:10px;display:flex;align-items:center;justify-content:center;font-size:28px}
+.blog-cat{font-size:11px;font-weight:500;padding:3px 8px;border-radius:20px}
+.blog-cat-career{background:#EEEDFE;color:#534AB7}
+.blog-cat-product{background:#E1F5EE;color:#0F6E56}
+.blog-cat-interview{background:#FAEEDA;color:#633806}
+.blog-cat-skill{background:#FBEAF0;color:#72243E}
+.blog-title{font-size:14px;font-weight:500;color:var(--color-text-primary);margin-top:6px;line-height:1.4}
+.blog-preview{font-size:12px;color:var(--color-text-secondary);margin-top:5px;line-height:1.5}
+.blog-author{display:flex;align-items:center;gap:6px;margin-top:10px}
+.av-sm{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:500;flex-shrink:0}
+.read-time{font-size:11px;color:var(--color-text-tertiary)}
+.section-label{font-size:12px;font-weight:500;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px}
+.avail{font-size:12px;margin-top:8px}
+.avail-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#1D9E75;margin-right:5px}
+.avail-dot.busy{background:#E24B4A}
+</style>
+<div class="wrap">
+<div class="tabs">
+  <button class="tab active" onclick="show('mentors',this)">Mentors</button>
+  <button class="tab" onclick="show('events',this)">Events</button>
+  <button class="tab" onclick="show('blog',this)">Blog</button>
+</div>
+
+<div class="section active" id="mentors">
+  <div class="section-label">6 mentors · all placeholder data</div>
+  <div class="grid2">
+
+    <div class="card">
+      <div style="display:flex;align-items:flex-start;gap:10px">
+        <div class="avatar av-p">SR</div>
+        <div style="flex:1">
+          <div class="name">Sanya Rowe</div>
+          <div class="role">Senior PM · Google · 8 yrs exp</div>
+          <div class="avail"><span class="avail-dot"></span><span style="font-size:12px;color:var(--color-text-secondary)">Available this week</span></div>
+        </div>
+      </div>
+      <div class="tags">
+        <span class="tag tag-p">Product Strategy</span>
+        <span class="tag tag-p">0-to-1</span>
+        <span class="tag tag-t">Consumer Apps</span>
+        <span class="tag">OKRs</span>
+      </div>
+      <div class="rating"><span>★ 4.9</span> · 34 sessions · $120/hr</div>
+      <div class="divider"></div>
+      <div style="font-size:12px;color:var(--color-text-secondary);line-height:1.5">"I help PMs move from execution to strategy — understanding the why before the what."</div>
+      <button class="btn-sm" onclick="sendPrompt('Show me the booking modal for Sanya Rowe')">Book session ↗</button>
+    </div>
+
+    <div class="card">
+      <div style="display:flex;align-items:flex-start;gap:10px">
+        <div class="avatar av-t">MK</div>
+        <div style="flex:1">
+          <div class="name">Marcus Kwon</div>
+          <div class="role">Group PM · Stripe · 11 yrs exp</div>
+          <div class="avail"><span class="avail-dot"></span><span style="font-size:12px;color:var(--color-text-secondary)">Available this week</span></div>
+        </div>
+      </div>
+      <div class="tags">
+        <span class="tag tag-p">FinTech</span>
+        <span class="tag tag-p">B2B SaaS</span>
+        <span class="tag tag-t">Pricing</span>
+        <span class="tag">API Products</span>
+      </div>
+      <div class="rating"><span>★ 4.8</span> · 61 sessions · $150/hr</div>
+      <div class="divider"></div>
+      <div style="font-size:12px;color:var(--color-text-secondary);line-height:1.5">"Specialise in payments and developer products. Ask me anything about monetisation."</div>
+      <button class="btn-sm" onclick="sendPrompt('Show me the booking modal for Marcus Kwon')">Book session ↗</button>
+    </div>
+
+    <div class="card">
+      <div style="display:flex;align-items:flex-start;gap:10px">
+        <div class="avatar av-a">PV</div>
+        <div style="flex:1">
+          <div class="name">Priya Varma</div>
+          <div class="role">PM Lead · Meta · 6 yrs exp</div>
+          <div class="avail"><span class="avail-dot busy"></span><span style="font-size:12px;color:var(--color-text-secondary)">Next available: Mon</span></div>
+        </div>
+      </div>
+      <div class="tags">
+        <span class="tag tag-p">Growth</span>
+        <span class="tag tag-t">Social</span>
+        <span class="tag">Experimentation</span>
+        <span class="tag">A/B Testing</span>
+      </div>
+      <div class="rating"><span>★ 4.7</span> · 28 sessions · $110/hr</div>
+      <div class="divider"></div>
+      <div style="font-size:12px;color:var(--color-text-secondary);line-height:1.5">"Growth-stage PM with a data-first mindset. Love working on north star metrics."</div>
+      <button class="btn-sm" onclick="sendPrompt('Show me the booking modal for Priya Varma')">Book session ↗</button>
+    </div>
+
+    <div class="card">
+      <div style="display:flex;align-items:flex-start;gap:10px">
+        <div class="avatar av-b">DL</div>
+        <div style="flex:1">
+          <div class="name">Devon Lim</div>
+          <div class="role">Director of PM · Notion · 10 yrs exp</div>
+          <div class="avail"><span class="avail-dot"></span><span style="font-size:12px;color:var(--color-text-secondary)">Available this week</span></div>
+        </div>
+      </div>
+      <div class="tags">
+        <span class="tag tag-p">Productivity</span>
+        <span class="tag tag-p">Enterprise</span>
+        <span class="tag tag-t">PLG</span>
+        <span class="tag">Roadmapping</span>
+      </div>
+      <div class="rating"><span>★ 5.0</span> · 12 sessions · $180/hr</div>
+      <div class="divider"></div>
+      <div style="font-size:12px;color:var(--color-text-secondary);line-height:1.5">"Helping PMs bridge the gap between user delight and business outcomes."</div>
+      <button class="btn-sm" onclick="sendPrompt('Show me the booking modal for Devon Lim')">Book session ↗</button>
+    </div>
+
+    <div class="card">
+      <div style="display:flex;align-items:flex-start;gap:10px">
+        <div class="avatar av-g">TN</div>
+        <div style="flex:1">
+          <div class="name">Tariq Naseer</div>
+          <div class="role">Staff PM · Shopify · 9 yrs exp</div>
+          <div class="avail"><span class="avail-dot busy"></span><span style="font-size:12px;color:var(--color-text-secondary)">Next available: Wed</span></div>
+        </div>
+      </div>
+      <div class="tags">
+        <span class="tag tag-p">Commerce</span>
+        <span class="tag tag-t">Platform</span>
+        <span class="tag">Marketplace</span>
+        <span class="tag">Ecosystems</span>
+      </div>
+      <div class="rating"><span>★ 4.9</span> · 47 sessions · $130/hr</div>
+      <div class="divider"></div>
+      <div style="font-size:12px;color:var(--color-text-secondary);line-height:1.5">"Platform and marketplace specialist — I focus on multi-sided product thinking."</div>
+      <button class="btn-sm" onclick="sendPrompt('Show me the booking modal for Tariq Naseer')">Book session ↗</button>
+    </div>
+
+    <div class="card">
+      <div style="display:flex;align-items:flex-start;gap:10px">
+        <div class="avatar av-p">AJ</div>
+        <div style="flex:1">
+          <div class="name">Amara Joshi</div>
+          <div class="role">Principal PM · Microsoft · 13 yrs exp</div>
+          <div class="avail"><span class="avail-dot"></span><span style="font-size:12px;color:var(--color-text-secondary)">Available this week</span></div>
+        </div>
+      </div>
+      <div class="tags">
+        <span class="tag tag-p">AI/ML Products</span>
+        <span class="tag tag-t">Enterprise</span>
+        <span class="tag">Azure</span>
+        <span class="tag">Career Growth</span>
+      </div>
+      <div class="rating"><span>★ 4.8</span> · 89 sessions · $160/hr</div>
+      <div class="divider"></div>
+      <div style="font-size:12px;color:var(--color-text-secondary);line-height:1.5">"Specialise in AI product strategy and helping senior ICs move into PM roles."</div>
+      <button class="btn-sm" onclick="sendPrompt('Show me the booking modal for Amara Joshi')">Book session ↗</button>
+    </div>
+
+  </div>
+</div>
+
+<div class="section" id="events">
+  <div class="section-label">8 events · placeholder data</div>
+  <div class="grid2">
+
+    <div class="card">
+      <div class="event-date">Tue 1 Apr · 6:00 PM IST</div>
+      <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px">
+        <span class="badge badge-live">● Live</span>
+        <span class="badge badge-virtual">Virtual</span>
+        <span class="badge badge-free">Free</span>
+      </div>
+      <div class="event-title">PM Interview Masterclass: cracking the case round</div>
+      <div class="event-meta">Hosted by Sanya Rowe · 60 min · Zoom</div>
+      <div class="divider"></div>
+      <div style="font-size:12px;color:var(--color-text-secondary)">Walk through 3 live case studies with real-time Q&A. 42 registered.</div>
+      <button class="btn-sm" onclick="sendPrompt('Register me for PM Interview Masterclass on 1 Apr')">Register ↗</button>
+    </div>
+
+    <div class="card">
+      <div class="event-date">Thu 3 Apr · 7:30 PM IST</div>
+      <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px">
+        <span class="badge badge-live">● Live</span>
+        <span class="badge badge-virtual">Virtual</span>
+        <span class="badge badge-paid">₹499</span>
+      </div>
+      <div class="event-title">From engineer to PM: navigating the career switch</div>
+      <div class="event-meta">Hosted by Amara Joshi · 90 min · Google Meet</div>
+      <div class="divider"></div>
+      <div style="font-size:12px;color:var(--color-text-secondary)">Panel + AMA with 3 PMs who made the tech-to-PM transition. 18 seats left.</div>
+      <button class="btn-sm" onclick="sendPrompt('Register me for the engineer to PM panel on 3 Apr')">Register ↗</button>
+    </div>
+
+    <div class="card">
+      <div class="event-date">Sat 5 Apr · 10:00 AM IST</div>
+      <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px">
+        <span class="badge badge-inperson">In person</span>
+        <span class="badge badge-free">Free</span>
+      </div>
+      <div class="event-title">PM community meetup — Bengaluru #12</div>
+      <div class="event-meta">91springboard, Koramangala · 3 hrs · 60 spots</div>
+      <div class="divider"></div>
+      <div style="font-size:12px;color:var(--color-text-secondary)">Monthly in-person networking for Bengaluru PMs. Lightning talks + open networking.</div>
+      <button class="btn-sm" onclick="sendPrompt('Register me for PM community meetup Bengaluru on 5 Apr')">Register ↗</button>
+    </div>
+
+    <div class="card">
+      <div class="event-date">Wed 9 Apr · 8:00 PM IST</div>
+      <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px">
+        <span class="badge badge-virtual">Virtual</span>
+        <span class="badge badge-free">Free</span>
+      </div>
+      <div class="event-title">Office hours: ask a hiring manager anything</div>
+      <div class="event-meta">Hosted by Devon Lim · 60 min · Zoom</div>
+      <div class="divider"></div>
+      <div style="font-size:12px;color:var(--color-text-secondary)">Open Q&A — bring your resume, portfolio, or career questions. First-come seats.</div>
+      <button class="btn-sm" onclick="sendPrompt('Register me for hiring manager office hours on 9 Apr')">Register ↗</button>
+    </div>
+
+    <div class="card">
+      <div class="event-date">Fri 11 Apr · 5:00 PM IST</div>
+      <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px">
+        <span class="badge badge-virtual">Virtual</span>
+        <span class="badge badge-paid">₹299</span>
+      </div>
+      <div class="event-title">Metrics that matter: data storytelling for PMs</div>
+      <div class="event-meta">Hosted by Priya Varma · 75 min · Google Meet</div>
+      <div class="divider"></div>
+      <div style="font-size:12px;color:var(--color-text-secondary)">Learn to build and present metrics dashboards that influence roadmap decisions.</div>
+      <button class="btn-sm" onclick="sendPrompt('Register me for Metrics that Matter workshop 11 Apr')">Register ↗</button>
+    </div>
+
+    <div class="card">
+      <div class="event-date">Sat 19 Apr · 11:00 AM IST</div>
+      <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px">
+        <span class="badge badge-live">● Live</span>
+        <span class="badge badge-virtual">Virtual</span>
+        <span class="badge badge-free">Free</span>
+      </div>
+      <div class="event-title">Mock interview day — product design round</div>
+      <div class="event-meta">Multiple mentors · 3 hrs · Zoom breakout rooms</div>
+      <div class="divider"></div>
+      <div style="font-size:12px;color:var(--color-text-secondary)">Paired mock interviews with real mentor feedback. Limited to 30 participants.</div>
+      <button class="btn-sm" onclick="sendPrompt('Register me for Mock Interview Day on 19 Apr')">Register ↗</button>
+    </div>
+
+    <div class="card" style="border:0.5px solid var(--color-border-tertiary);opacity:0.6">
+      <div class="event-date" style="background:var(--color-background-secondary);color:var(--color-text-secondary)">Sat 15 Mar · PAST</div>
+      <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px">
+        <span class="badge" style="background:var(--color-background-secondary);color:var(--color-text-secondary)">Ended</span>
+      </div>
+      <div class="event-title">Breaking into FAANG as a PM</div>
+      <div class="event-meta">Hosted by Marcus Kwon · 120 min · 94 attended</div>
+      <div class="divider"></div>
+      <div style="font-size:12px;color:var(--color-text-secondary)">Recording available for registered learners.</div>
+      <button class="btn-sm" style="opacity:0.5;cursor:default">Watch recording</button>
+    </div>
+
+    <div class="card" style="border:0.5px solid var(--color-border-tertiary);opacity:0.6">
+      <div class="event-date" style="background:var(--color-background-secondary);color:var(--color-text-secondary)">Tue 4 Mar · PAST</div>
+      <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px">
+        <span class="badge" style="background:var(--color-background-secondary);color:var(--color-text-secondary)">Ended</span>
+      </div>
+      <div class="event-title">Writing your PM story: resume and portfolio workshop</div>
+      <div class="event-meta">Hosted by Sanya Rowe · 60 min · 57 attended</div>
+      <div class="divider"></div>
+      <div style="font-size:12px;color:var(--color-text-secondary)">Recording available for registered learners.</div>
+      <button class="btn-sm" style="opacity:0.5;cursor:default">Watch recording</button>
+    </div>
+
+  </div>
+</div>
+
+<div class="section" id="blog">
+  <div class="section-label">8 articles · placeholder data</div>
+  <div class="grid2">
+
+    <div class="card">
+      <div class="blog-img">📐</div>
+      <span class="blog-cat blog-cat-product">Product thinking</span>
+      <div class="blog-title">The CIRCLES framework isn't enough — here's what to add</div>
+      <div class="blog-preview">Most PMs learn CIRCLES and stop. Senior interviewers are looking for something beyond the template...</div>
+      <div class="blog-author">
+        <div class="av-sm av-p">SR</div>
+        <span style="font-size:12px;color:var(--color-text-secondary)">Sanya Rowe</span>
+        <span class="read-time" style="margin-left:auto">5 min read</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="blog-img">📊</div>
+      <span class="blog-cat blog-cat-skill">Data & metrics</span>
+      <div class="blog-title">How to answer "how would you measure success?" without freezing</div>
+      <div class="blog-preview">It's the most common analytical interview question — and the most mishandled. A structured approach that works across all product types...</div>
+      <div class="blog-author">
+        <div class="av-sm av-t">PV</div>
+        <span style="font-size:12px;color:var(--color-text-secondary)">Priya Varma</span>
+        <span class="read-time" style="margin-left:auto">7 min read</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="blog-img">🎯</div>
+      <span class="blog-cat blog-cat-career">Career</span>
+      <div class="blog-title">Why your PM resume is getting screened out in 8 seconds</div>
+      <div class="blog-preview">Hiring managers spend less time on a resume than you think. Three structural changes that change how they read yours...</div>
+      <div class="blog-author">
+        <div class="av-sm av-b">DL</div>
+        <span style="font-size:12px;color:var(--color-text-secondary)">Devon Lim</span>
+        <span class="read-time" style="margin-left:auto">4 min read</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="blog-img">🤝</div>
+      <span class="blog-cat blog-cat-interview">Interview prep</span>
+      <div class="blog-title">The behavioural interview isn't about stories — it's about judgment</div>
+      <div class="blog-preview">STAR method is necessary but not sufficient. What actually differentiates a great behavioural answer is the insight you surface at the end...</div>
+      <div class="blog-author">
+        <div class="av-sm av-g">TN</div>
+        <span style="font-size:12px;color:var(--color-text-secondary)">Tariq Naseer</span>
+        <span class="read-time" style="margin-left:auto">6 min read</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="blog-img">⚡</div>
+      <span class="blog-cat blog-cat-career">Career</span>
+      <div class="blog-title">APM vs senior PM vs director: what each interview actually tests</div>
+      <div class="blog-preview">The same question lands differently at each level. Here's what interviewers are calibrating for when they ask "tell me about a product you built"...</div>
+      <div class="blog-author">
+        <div class="av-sm av-p">AJ</div>
+        <span style="font-size:12px;color:var(--color-text-secondary)">Amara Joshi</span>
+        <span class="read-time" style="margin-left:auto">8 min read</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="blog-img">🔍</div>
+      <span class="blog-cat blog-cat-product">Product thinking</span>
+      <div class="blog-title">Prioritisation frameworks compared: RICE, ICE, Kano — when to use which</div>
+      <div class="blog-preview">Knowing the acronyms isn't enough. The framework you choose signals how you think about trade-offs — and interviewers notice...</div>
+      <div class="blog-author">
+        <div class="av-sm av-t">MK</div>
+        <span style="font-size:12px;color:var(--color-text-secondary)">Marcus Kwon</span>
+        <span class="read-time" style="margin-left:auto">6 min read</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="blog-img">🧠</div>
+      <span class="blog-cat blog-cat-interview">Interview prep</span>
+      <div class="blog-title">What I look for in strategy interviews — a hiring manager's view</div>
+      <div class="blog-preview">After 200+ PM interviews, patterns emerge. Most candidates get the framework right and the insight wrong. Here's how to flip that...</div>
+      <div class="blog-author">
+        <div class="av-sm av-b">DL</div>
+        <span style="font-size:12px;color:var(--color-text-secondary)">Devon Lim</span>
+        <span class="read-time" style="margin-left:auto">9 min read</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="blog-img">🚀</div>
+      <span class="blog-cat blog-cat-skill">Skill building</span>
+      <div class="blog-title">Technical depth for non-engineering PMs: exactly what to learn</div>
+      <div class="blog-preview">You don't need to code. But you do need to speak to engineers without hand-waving. A focused 4-week plan to build technical credibility...</div>
+      <div class="blog-author">
+        <div class="av-sm av-p">AJ</div>
+        <span style="font-size:12px;color:var(--color-text-secondary)">Amara Joshi</span>
+        <span class="read-time" style="margin-left:auto">7 min read</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>
+<script>
+function show(id,btn){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+</script>

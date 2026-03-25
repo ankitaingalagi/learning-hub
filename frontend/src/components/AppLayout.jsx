@@ -1,7 +1,8 @@
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import {
   LayoutDashboard, BookOpen, ClipboardList, BarChart2,
-  Map, Users, Calendar, FileText, Settings, LogOut, Shield
+  Map, Users, Calendar, FileText, Settings, LogOut, Shield,
+  MessageSquare, ShieldCheck
 } from 'lucide-react';
 import { useAuthStore } from '../store/authStore';
 
@@ -11,6 +12,7 @@ const NAV_LINKS = [
   { to: '/app/assessments', icon: ClipboardList, label: 'Assessments' },
   { to: '/app/gap-analysis', icon: BarChart2, label: 'Gap Analysis' },
   { to: '/app/roadmap', icon: Map, label: 'Roadmap' },
+  { to: '/app/interview-prep', icon: MessageSquare, label: 'Interview Prep' },
   { to: '/app/mentors', icon: Users, label: 'Mentors' },
   { to: '/app/events', icon: Calendar, label: 'Events' },
   { to: '/app/blog', icon: FileText, label: 'Blog' },
