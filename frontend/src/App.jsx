@@ -187,6 +187,9 @@ export default function App() {
             <Route element={<AdminRoute />}>
               <Route path="admin/users" element={<AdminUsers />} />
             </Route>
+
+            {/* Catch-all invalid /app/* routes */}
+            <Route path="*" element={<Navigate to="/" replace />} />
           </Route>
         </Route>
 
